@@ -1,4 +1,6 @@
-<div class="card  bg-light bg-primary mb-3" style="">
+<app-detalle *ngIf = "clienteSeleccionado" [cliente]= "clienteSeleccionado" ></app-detalle>
+
+<div class="card  bg-light bg-primary mb-3">
         <div class="card-header">Clientes</div>
         <div class="card-body">
           <h5 class="card-title">listado de clientes</h5>
@@ -22,11 +24,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let cliente of clientes">
-                    <td>{{ cliente.id }}</td>
-                    <td>{{ cliente.nombre}}</td>
-                    <td>{{ cliente.apellido }}</td>
+                    <td><button type="button" (click)="abrirModal(cliente)" class="btn btn-success btn-sm">{{ cliente.id }}</button></td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.apellido | uppercase }}</td>
                     <td>{{ cliente.email }}</td>
-                    <td>{{ cliente.createAt }}</td>
+                    <td>{{ cliente.createAt | date: "EEEE dd, MMMM yyyy" }}</td>
                     <td>
                       <button type="button" name="editar" [routerLink] = "['/clientes/form', cliente.id]" class="btn btn-primary">Editar</button>
                     </td>
@@ -36,5 +38,6 @@
                 </tr>
             </tbody>
           </table>
+          <paginator-nav *ngIf="paginador" [paginador] = "paginador"></paginator-nav>
         </div>
       </div>
